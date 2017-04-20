@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static final String KEY_USERNAME = "user_name";
     public static final String KEY_PASSWORD = "user_pw";
 
-    Integer user_name;
+    String user_name;
     String user_pw;
     private EditText txUsername;
     private EditText txPassword;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bLogin.setOnClickListener(this);
     }
     private void userLogin() {
-        user_name = Integer.parseInt(txUsername.getText().toString().trim());
+        user_name = txUsername.getText().toString().trim();
         user_pw = txPassword.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
@@ -79,20 +79,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             if(response != null) {
-                                Integer username = jsonResponse.getJSONObject("user").getInt("name");
+                                String username = jsonResponse.getJSONObject("user").getInt("name")+"";
+                                //Integer username = jsonResponse.getJSONObject("user").getInt("name");
                                 String user_type = jsonResponse.getJSONObject("user").getString("type");
                                 String type = jsonResponse.getString("user_id");
                                 Log.d("Test", response.toString());
                                 Intent intent = new Intent();
                                 if(user_type.equals("A")) {
                                     intent = new Intent(MainActivity.this, AdminAreaActivity.class);
-                                    intent.putExtra("username", username.toString());
+                                    intent.putExtra("username", username);
                                     intent.putExtra("type", user_type);
                                     MainActivity.this.startActivity(intent);
                                 }
                                 if(user_type.equals("U")) {
                                     intent = new Intent(MainActivity.this, UserAreaActivity.class);
-                                    intent.putExtra("username", username.toString());
+                                    intent.putExtra("username", username);
                                     intent.putExtra("type", user_type);
                                     MainActivity.this.startActivity(intent);
                                 }
