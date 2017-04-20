@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText txUsername;
     private EditText txPassword;
 
+
     private Button bLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +46,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         txUsername = (EditText) findViewById(R.id.txUsername);
         txPassword = (EditText) findViewById(R.id.txPassword);
+        final TextView registerLink = (TextView) findViewById(R.id.linkRegister);
+        final TextView resetPasswordLink = (TextView) findViewById(R.id.linkResetPassword);
+
+        registerLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(MainActivity.this, RegisterActivity.class);
+                MainActivity.this.startActivity(registerIntent);
+            }
+        });
+
+        resetPasswordLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent resetPasswordIntent = new Intent(MainActivity.this, ResetPasswordActivity.class);
+                MainActivity.this.startActivity(resetPasswordIntent);
+            }
+        });
 
         bLogin = (Button) findViewById(R.id.bLogin);
-
         bLogin.setOnClickListener(this);
     }
     private void userLogin() {

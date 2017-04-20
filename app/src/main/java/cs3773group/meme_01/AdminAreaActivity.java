@@ -18,13 +18,13 @@ public class AdminAreaActivity extends AppCompatActivity {
         final EditText txType = (EditText) findViewById(R.id.txType);
         final TextView loginLink = (TextView) findViewById(R.id.linkLogin);
 
-//        loginLink.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent registerIntent = new Intent(AdminAreaActivity.this, LoginActivity.class);
-//                AdminAreaActivity.this.startActivity(registerIntent);
-//            }
-//        });
+        loginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(AdminAreaActivity.this, MainActivity.class);
+                AdminAreaActivity.this.startActivity(registerIntent);
+            }
+        });
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");

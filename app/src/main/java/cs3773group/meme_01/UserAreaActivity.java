@@ -18,6 +18,14 @@ public class UserAreaActivity extends AppCompatActivity {
         final EditText txType = (EditText) findViewById(R.id.txType);
         final TextView loginLink = (TextView) findViewById(R.id.linkLogin);
 
+        loginLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(UserAreaActivity.this, MainActivity.class);
+                UserAreaActivity.this.startActivity(registerIntent);
+            }
+        });
+
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
         String type = intent.getStringExtra("type");
