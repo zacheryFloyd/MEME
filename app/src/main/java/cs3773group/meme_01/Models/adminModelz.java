@@ -32,8 +32,8 @@ public class adminModelz {
     public adminModelz(){
         this.username = 0;
         this.password = "";
-        AdminAreaActivity john = new AdminAreaActivity();
-        john.addUserToDatabase();
+        //AdminAreaActivity john = new AdminAreaActivity();
+        //john.addUserToDatabase();
     }
 
     public adminModelz(int username, String password){

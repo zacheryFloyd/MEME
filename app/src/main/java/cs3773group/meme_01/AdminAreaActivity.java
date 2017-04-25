@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import java.util.Random;
 public class AdminAreaActivity extends AppCompatActivity implements View.OnClickListener{
     private String userUsername;
     private String userPassword;
+    private Button bCreateUser;
 
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/insertUser.php";
     public static final String KEY_USERNAME = "user_name";
@@ -40,7 +42,8 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         final EditText txUsername = (EditText) findViewById(R.id.txUsername);
         final EditText txType = (EditText) findViewById(R.id.txType);
         final TextView loginLink = (TextView) findViewById(R.id.linkLogin);
-
+        bCreateUser = (Button) findViewById(R.id.bCreateUser);
+        bCreateUser.setOnClickListener(this);
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,8 +137,8 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        /*if(v == bCreateUser){
+        if(v == bCreateUser){
             addUserToDatabase();
-        }*/
+        }
     }
 }
