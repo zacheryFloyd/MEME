@@ -104,9 +104,10 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
 
         //random 10 string username
         Random rand = new Random();
-        char[] newUsername = new char[10];
+        int usernameSize = 10 + rand.nextInt(6);
+        char[] newUsername = new char[usernameSize];
 
-        for(int i=0; i<10; i++){
+        for(int i=0; i<usernameSize; i++){
             newUsername[i] = numbers.toCharArray()[sr.nextInt(numbers.toCharArray().length)];
         }
 
