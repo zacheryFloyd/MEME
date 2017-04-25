@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -68,7 +69,10 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             if (response != null) {
-                                Log.d("JSON", jsonResponse.toString());
+                                if(jsonResponse.getString("success").equals("true"))
+                                    Toast.makeText(AdminAreaActivity.this, "User Successfully Created", Toast.LENGTH_LONG).show();
+                                else if(jsonResponse.getString("success").equals("false"))
+                                    Toast.makeText(AdminAreaActivity.this, "User Creation Failed", Toast.LENGTH_LONG).show();
                             }
 
                         } catch (JSONException e) {
