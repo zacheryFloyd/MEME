@@ -27,6 +27,9 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import cs3773group.meme_01.Models.adminModelz;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/login.php";
     public static final String KEY_USERNAME = "user_name";
@@ -36,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     String user_pw;
     private EditText txUsername;
     private EditText txPassword;
+
+    private adminModelz admin = new adminModelz();
 
 
     private Button bLogin;
