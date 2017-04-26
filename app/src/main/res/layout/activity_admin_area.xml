@@ -94,7 +94,7 @@
             tools:layout_editor_absoluteY="128dp" />
 
         <Button
-            android:id="@+id/bDeleteUser"
+            android:id="@+id/bDisplayUsers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Display All Users"

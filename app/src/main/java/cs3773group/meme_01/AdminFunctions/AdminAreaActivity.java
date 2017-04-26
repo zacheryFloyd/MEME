@@ -49,6 +49,8 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         final TextView loginLink = (TextView) findViewById(R.id.linkLogin);
         bCreateUser = (Button) findViewById(R.id.bCreateUser);
         bCreateUser.setOnClickListener(this);
+        bDisplayUsers = (Button) findViewById(R.id.bDisplayUsers);
+        bDisplayUsers.setOnClickListener(this);
         loginLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,6 +150,11 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if(v == bCreateUser){
             addUserToDatabase();
+        }
+        else if(v == bDisplayUsers){
+            Log.d("BUTTON PRESSED", "YEEEEEEEAH BOI");
+            Intent intent = new Intent(AdminAreaActivity.this, UserListActivity.class);
+            AdminAreaActivity.this.startActivity(intent);
         }
     }
 }

@@ -21,7 +21,9 @@
         <activity android:name=".UserAreaActivity" />
         <activity android:name=".AdminFunctions.AdminAreaActivity" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".ResetPasswordActivity" />
+        <activity android:name=".AdminFunctions.UserListActivity" >
+        </activity>
     </application>
 
 </manifest>
