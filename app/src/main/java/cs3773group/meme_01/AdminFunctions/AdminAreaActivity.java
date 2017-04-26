@@ -1,4 +1,4 @@
-package cs3773group.meme_01;
+package cs3773group.meme_01.AdminFunctions;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,6 +25,9 @@ import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import cs3773group.meme_01.MainActivity;
+import cs3773group.meme_01.R;
 
 public class AdminAreaActivity extends AppCompatActivity implements View.OnClickListener{
     private String userUsername;

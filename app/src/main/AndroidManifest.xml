@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".UserAreaActivity" />
-        <activity android:name=".AdminAreaActivity" />
+        <activity android:name=".AdminFunctions.AdminAreaActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResetPasswordActivity"></activity>
     </application>

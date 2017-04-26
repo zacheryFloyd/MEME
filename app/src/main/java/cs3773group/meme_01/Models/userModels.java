@@ -9,17 +9,20 @@ public class userModels {
     private int username;
     private String password;
     private boolean isOnline;
+    private boolean isLocked;
 
     public userModels (){
         this.username = 0;
         this.password = "";
         this.isOnline = false;
+        this.isLocked = false;
     }
 
     public userModels(int username, String password){
         this.username = username;
         this.password = password;
         this.isOnline = false;
+        this.isLocked = false;
     }
 
     public int getUsername() {
@@ -44,5 +47,13 @@ public class userModels {
 
     public void setOnline(boolean online) {
         isOnline = online;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 }
