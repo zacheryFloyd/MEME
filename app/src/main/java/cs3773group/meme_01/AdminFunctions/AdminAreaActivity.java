@@ -33,6 +33,7 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
     private String userUsername;
     private String userPassword;
     private Button bCreateUser;
+    private Button bDisplayUsers;
 
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/insertUser.php";
     public static final String KEY_USERNAME = "user_name";
