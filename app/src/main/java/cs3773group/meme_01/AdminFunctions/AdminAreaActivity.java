@@ -152,7 +152,6 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
             addUserToDatabase();
         }
         else if(v == bDisplayUsers){
-            Log.d("BUTTON PRESSED", "YEEEEEEEAH BOI");
             Intent intent = new Intent(AdminAreaActivity.this, UserListActivity.class);
             AdminAreaActivity.this.startActivity(intent);
         }

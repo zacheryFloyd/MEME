@@ -1,8 +1,94 @@
 package cs3773group.meme_01.AdminFunctions;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+
+import cs3773group.meme_01.R;
+
 /**
  * Created by Tom on 4/26/2017.
  */
 
-public class AdminViewUserActivity {
+public class AdminViewUserActivity extends AppCompatActivity implements View.OnClickListener{
+    private Button bBack;
+    private Button bLock;
+    private Button bUnlock;
+    private Button bDelete;
+
+    /*
+    private static final String LOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/lockUser.php";
+    private static final String UNLOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/unlockUser.php";
+    private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteUser.php";
+
+    public static final String KEY_USERNAME = "user_name";
+    public static final String KEY_PASSWORD = "user_pw";
+     */
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_admin_view_user);
+        bBack = (Button) findViewById(R.id.bBack);
+        bBack.setOnClickListener(this);
+        bLock = (Button) findViewById(R.id.bLock);
+        bLock.setOnClickListener(this);
+        bUnlock = (Button) findViewById(R.id.bUnlock);
+        bUnlock.setOnClickListener(this);
+        bDelete = (Button) findViewById(R.id.bDelete);
+        bDelete.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(v == bBack){
+            Intent intent = new Intent(AdminViewUserActivity.this, UserListActivity.class);
+            AdminViewUserActivity.this.startActivity(intent);
+        }
+        else if(v == bLock){
+            //lockUser();
+        }
+        else if(v == bUnlock){
+            //unlockUser();
+        }
+        else if(v == bDelete){
+            //deleteUser();
+        }
+    }
 }
+
+/* JSON SHIT FOR (UN)LOCKING AND DELETE USERS
+StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if (response != null) {
+                                if(jsonResponse.getString("success").equals("true"))
+                                    Toast.makeText(AdminAreaActivity.this, "User Successfully Created", Toast.LENGTH_LONG).show();
+                                else if(jsonResponse.getString("success").equals("false"))
+                                    Toast.makeText(AdminAreaActivity.this, "User Creation Failed", Toast.LENGTH_LONG).show();
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put(KEY_USERNAME, userUsername);
+                map.put(KEY_PASSWORD, userPassword);
+                return map;
+            }
+        };
+*/

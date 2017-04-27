@@ -22,7 +22,8 @@
         <activity android:name=".AdminFunctions.AdminAreaActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".AdminFunctions.UserListActivity" >
+        <activity android:name=".AdminFunctions.UserListActivity" />
+        <activity android:name=".AdminFunctions.AdminViewUserActivity" >
         </activity>
     </application>
 
