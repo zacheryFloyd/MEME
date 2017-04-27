@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,94 +10,84 @@
     android:paddingTop="16dp"
     tools:context="cs3773group.meme_01.AdminFunctions.AdminAreaActivity">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Username:"
-            android:textSize="30sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="16dp" />
-
-        <EditText
-            android:id="@+id/txUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="52dp" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Type:"
-            android:textSize="30sp"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="95dp" />
-
-        <EditText
-            android:id="@+id/txType"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="131dp" />
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/linkLogin"
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Username:"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/txUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Return to Login"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                tools:layout_editor_absoluteX="111dp"
-                tools:layout_editor_absoluteY="466dp" />
+                android:text="Type:"
+                android:textSize="30sp"/>
+
+            <TextView
+                android:id="@+id/txType"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"/>
 
             <Space
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/bCreateUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Create User"/>
+
+            <Button
+                android:id="@+id/bDisplayUsers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Display All Users"/>
+
         </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
         <Space
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/bCreateUser"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/linkLogout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Create User"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="128dp" />
+            android:text="Logout"
+            android:textAlignment="center"
+            android:textSize="24sp" />
 
-        <Button
-            android:id="@+id/bDisplayUsers"
-            android:layout_width="match_parent"
+        <Space
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Display All Users"
-            tools:layout_editor_absoluteX="148dp"
-            tools:layout_editor_absoluteY="128dp" />
+            android:layout_weight="1" />
     </LinearLayout>
+
 </LinearLayout>

@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
+import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
 
 /**
@@ -31,6 +33,8 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_view_user);
+
+        final TextView txUsername = (TextView) findViewById(R.id.txUsername);
         bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(this);
         bLock = (Button) findViewById(R.id.bLock);
@@ -39,6 +43,20 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
         bUnlock.setOnClickListener(this);
         bDelete = (Button) findViewById(R.id.bDelete);
         bDelete.setOnClickListener(this);
+
+        final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
+        logoutLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(AdminViewUserActivity.this, MainActivity.class);
+                AdminViewUserActivity.this.startActivity(registerIntent);
+            }
+        });
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+
+        txUsername.setText(username);
     }
 
     @Override

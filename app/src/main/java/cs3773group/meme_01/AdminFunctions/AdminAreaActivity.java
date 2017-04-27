@@ -44,14 +44,14 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_area);
 
-        final EditText txUsername = (EditText) findViewById(R.id.txUsername);
-        final EditText txType = (EditText) findViewById(R.id.txType);
-        final TextView loginLink = (TextView) findViewById(R.id.linkLogin);
+        final TextView txUsername = (TextView) findViewById(R.id.txUsername);
+        final TextView txType = (TextView) findViewById(R.id.txType);
+        final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
         bCreateUser = (Button) findViewById(R.id.bCreateUser);
         bCreateUser.setOnClickListener(this);
         bDisplayUsers = (Button) findViewById(R.id.bDisplayUsers);
         bDisplayUsers.setOnClickListener(this);
-        loginLink.setOnClickListener(new View.OnClickListener() {
+        logoutLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(AdminAreaActivity.this, MainActivity.class);
@@ -93,7 +93,7 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
                 }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> map = new HashMap<String, String>();
+                Map<String, String> map = new HashMap<>();
                 map.put(KEY_USERNAME, userUsername);
                 map.put(KEY_PASSWORD, userPassword);
                 return map;

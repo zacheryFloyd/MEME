@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> map = new HashMap<String,String>();
+                Map<String,String> map = new HashMap<>();
                 map.put(KEY_USERNAME,user_name.toString());
                 map.put(KEY_PASSWORD,user_pw);
                 return map;

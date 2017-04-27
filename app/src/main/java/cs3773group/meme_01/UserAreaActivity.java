@@ -14,11 +14,11 @@ public class UserAreaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
 
-        final EditText txUsername = (EditText) findViewById(R.id.txUsername);
-        final EditText txType = (EditText) findViewById(R.id.txType);
-        final TextView loginLink = (TextView) findViewById(R.id.linkLogin);
+        final TextView txUsername = (TextView) findViewById(R.id.txUsername);
+        final TextView txType = (TextView) findViewById(R.id.txType);
+        final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
 
-        loginLink.setOnClickListener(new View.OnClickListener() {
+        logoutLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(UserAreaActivity.this, MainActivity.class);
