@@ -1,35 +1,37 @@
 package cs3773group.meme_01.Models;
 
+import java.io.Serializable;
+
 /**
  * Created by Tom on 4/25/2017.
  */
 
-public class userModels {
+public class userModels implements Serializable{
 
-    private int username;
+    private String username;
     private String password;
     private boolean isOnline;
     private boolean isLocked;
 
     public userModels (){
-        this.username = 0;
+        this.username = "";
         this.password = "";
         this.isOnline = false;
         this.isLocked = false;
     }
 
-    public userModels(int username, String password){
+    public userModels(String username, String password){
         this.username = username;
         this.password = password;
         this.isOnline = false;
         this.isLocked = false;
     }
 
-    public int getUsername() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUsername(int username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

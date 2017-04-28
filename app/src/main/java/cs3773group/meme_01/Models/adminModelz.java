@@ -5,26 +5,26 @@ package cs3773group.meme_01.Models;
  */
 
 public class adminModelz {
-    private int username;
+    private String username;
     private String password;
 
     public adminModelz(){
-        this.username = 0;
+        this.username = "";
         this.password = "";
         //AdminAreaActivity john = new AdminAreaActivity();
         //john.addUserToDatabase();
     }
 
-    public adminModelz(int username, String password){
+    public adminModelz(String username, String password){
         this.username = username;
         this.password = password;
     }
 
-    public int getUsername(){
+    public String getUsername(){
         return this.username;
     }
 
-    public void setUsername(int username){
+    public void setUsername(String username){
         this.username = username;
     }
 

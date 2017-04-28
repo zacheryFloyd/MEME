@@ -18,16 +18,19 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
+import cs3773group.meme_01.Models.userModels;
 
 public class AdminAreaActivity extends AppCompatActivity implements View.OnClickListener{
     private String userUsername;
@@ -36,6 +39,7 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
     private Button bDisplayUsers;
 
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/insertUser.php";
+    private static final String GET_USERS_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/getUsers.php";
     public static final String KEY_USERNAME = "user_name";
     public static final String KEY_PASSWORD = "user_pw";
 
@@ -145,15 +149,55 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         Log.d("Password",userPassword);
         Log.d("Username", userUsername);
     }
-
+    public void getUsers() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_USERS_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            /* ON Response we want to parse the JSON into users, and create
+                               an ArrayList of userModels. We then put the list as an extra for
+                               the UserListActivity
+                             */
+                            JSONArray jsonUserArray = new JSONArray(response);
+                            if (response != null) {
+                                ArrayList<userModels> users = new ArrayList<userModels>(); // will hold list of users
+                                Integer len = response.length();
+                                for (int i = 0; i<jsonUserArray.length(); i++) {
+                                    JSONObject jsonUser = new JSONObject();
+                                    jsonUser = jsonUserArray.getJSONObject(i);  //one user object from the JSON
+                                    userModels user = new userModels();
+                                    //create a user object from the JSON, and add to list
+                                    user.setUsername(jsonUser.getJSONObject("user").getString("name"));
+                                    Log.d("USERNAME", user.getUsername());
+                                    users.add(user);
+                                }
+                                Intent intent = new Intent(AdminAreaActivity.this, UserListActivity.class);
+                                intent.putExtra("users", users);
+                                AdminAreaActivity.this.startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
     @Override
     public void onClick(View v) {
         if(v == bCreateUser){
             addUserToDatabase();
         }
         else if(v == bDisplayUsers){
-            Intent intent = new Intent(AdminAreaActivity.this, UserListActivity.class);
-            AdminAreaActivity.this.startActivity(intent);
+            //get list of users, and hand it off to next activity
+            getUsers();
         }
     }
 }

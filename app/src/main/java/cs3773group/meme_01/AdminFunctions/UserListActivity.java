@@ -3,6 +3,7 @@ package cs3773group.meme_01.AdminFunctions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,7 +12,10 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import cs3773group.meme_01.MainActivity;
+import cs3773group.meme_01.Models.userModels;
 import cs3773group.meme_01.R;
 
 /**
@@ -25,6 +29,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
     private Button bBack;
     private RadioGroup userList;
     private RadioButton userButton;
+    private int listSz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +50,14 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
-        // REPLACE 30 WITH VARIABLE CONTAINING LIST LENGTH
-        createUserList(30);
+        Intent intent = getIntent();
+        ArrayList<userModels> users = new ArrayList<userModels>();
+        users = (ArrayList<userModels>) intent.getSerializableExtra("users");
+        for (userModels u : users) {
+            Log.d("USER", u.getPassword());
+        }
+        listSz = users.size();
+        createUserList(listSz);
     }
 
     @Override
