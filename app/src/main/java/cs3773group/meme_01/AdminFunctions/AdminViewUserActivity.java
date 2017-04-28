@@ -3,9 +3,23 @@ package cs3773group.meme_01.AdminFunctions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
@@ -19,15 +33,15 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     private Button bLock;
     private Button bUnlock;
     private Button bDelete;
-
+    private String username;
     /*
     private static final String LOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/lockUser.php";
     private static final String UNLOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/unlockUser.php";
+    */
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteUser.php";
 
     public static final String KEY_USERNAME = "user_name";
-    public static final String KEY_PASSWORD = "user_pw";
-     */
+    //public static final String KEY_PASSWORD = "user_pw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +68,7 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
         });
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        username = intent.getStringExtra("username");
 
         txUsername.setText(username);
     }
@@ -62,7 +76,7 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if(v == bBack){
-            Intent intent = new Intent(AdminViewUserActivity.this, UserListActivity.class);
+            Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bLock){
@@ -72,8 +86,45 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
             //unlockUser();
         }
         else if(v == bDelete){
-            //deleteUser();
+            Log.d("bDelte","bDelte pressed");
+            deleteUser();
         }
+    }
+
+
+    public void deleteUser(){
+        Log.d("delteUser", "inside deleteUser");
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_URL,
+                new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("delete response)", response);
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+
+                        if (response != null) {
+                            if(jsonResponse.getString("success").equals("true"))
+                                Toast.makeText(AdminViewUserActivity.this, "User Successfully Deleted", Toast.LENGTH_LONG).show();
+                            else if(jsonResponse.getString("success").equals("false"))
+                                    Toast.makeText(AdminViewUserActivity.this, "User Deletion Failed", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put(KEY_USERNAME, username);
+                return map;
+            }
+        };
     }
 }
 

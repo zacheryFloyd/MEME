@@ -30,7 +30,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
     private RadioGroup userList;
     private RadioButton userButton;
     private int listSz;
-
+    private ArrayList <userModels> users;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +51,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
         });
 
         Intent intent = getIntent();
-        ArrayList<userModels> users = new ArrayList<userModels>();
+        //ArrayList<userModels> users = new ArrayList<userModels>();
         users = (ArrayList<userModels>) intent.getSerializableExtra("users");
         for (userModels u : users) {
             Log.d("USER", u.getPassword());
@@ -80,13 +80,11 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
         userList = new RadioGroup(this);
         userList.setOrientation(LinearLayout.VERTICAL);
 
-        for (int i = 1; i <= listLength; i++) {
+        for (int i = 0; i < listLength; i++) {
             RadioButton rbUser = new RadioButton(this);
 
             // REPLACE i WITH VARIABLE CONTAINING USERNAME
-            rbUser.setId(i);
-
-            rbUser.setText(("" + rbUser.getId()));
+            rbUser.setText(users.get(i).getUsername());
             userList.addView(rbUser);
         }
         ((ViewGroup) findViewById(R.id.listUsers)).addView(userList);

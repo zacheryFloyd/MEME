@@ -169,6 +169,7 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
                                     userModels user = new userModels();
                                     //create a user object from the JSON, and add to list
                                     user.setUsername(jsonUser.getJSONObject("user").getString("name"));
+                                    user.setPassword(jsonUser.getJSONObject("user").getString("pw"));
                                     Log.d("USERNAME", user.getUsername());
                                     users.add(user);
                                 }
