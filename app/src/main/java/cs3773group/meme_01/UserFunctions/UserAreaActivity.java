@@ -40,4 +40,9 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
         String username = intent.getStringExtra("username");
         txUsername.setText(username);
     }
+
+    @Override
+    public void onClick(View v){
+
+    }
 }

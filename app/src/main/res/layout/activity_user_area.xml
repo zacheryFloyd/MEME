@@ -46,7 +46,6 @@
                 android:layout_height="12dp"
                 android:layout_weight="1" />
 
-<<<<<<< Updated upstream
             <Button
                 android:id="@+id/bCompose"
                 android:layout_width="match_parent"
@@ -63,8 +62,6 @@
                 android:layout_height="wrap_content"
                 android:text="View Inbox" />
 
-=======
->>>>>>> Stashed changes
         </LinearLayout>
     </ScrollView>
 
