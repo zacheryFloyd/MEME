@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import cs3773group.meme_01.AdminFunctions.AdminAreaActivity;
+import cs3773group.meme_01.AdminFunctions.UserListActivity;
 import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
 
@@ -43,6 +45,13 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View v){
-
+        if(v == bCompose) {
+            Intent intent = new Intent(UserAreaActivity.this, MessageActivity.class);
+            UserAreaActivity.this.startActivity(intent);
+        }
+        else if(v == bInbox){
+            Intent intent = new Intent(UserAreaActivity.this, InboxActivity.class);
+            UserAreaActivity.this.startActivity(intent);
+        }
     }
 }
