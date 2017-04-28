@@ -32,10 +32,6 @@
         android:layout_height="wrap_content"
         android:text="Login" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -46,13 +42,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <TextView
+        <Button
             android:id="@+id/linkRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register User"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <Space
             android:layout_width="wrap_content"
@@ -61,10 +57,6 @@
 
     </LinearLayout>
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="20dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,13 +67,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
-        <TextView
+        <Button
             android:id="@+id/linkResetPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reset Password"
             android:textAlignment="center"
-            android:textSize="18sp" />
+            android:textSize="14sp" />
 
         <Space
             android:layout_width="wrap_content"
