@@ -170,6 +170,8 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
                                     //create a user object from the JSON, and add to list
                                     user.setUsername(jsonUser.getJSONObject("user").getString("name"));
                                     user.setPassword(jsonUser.getJSONObject("user").getString("pw"));
+                                    user.setLocked(Integer.parseInt(jsonUser.getJSONObject("user").getString("locked")));
+                                    user.setOnline(Integer.parseInt(jsonUser.getJSONObject("user").getString("online")));
                                     Log.d("USERNAME", user.getUsername());
                                     users.add(user);
                                 }

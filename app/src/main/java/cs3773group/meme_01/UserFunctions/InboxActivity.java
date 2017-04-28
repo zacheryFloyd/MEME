@@ -3,6 +3,7 @@ package cs3773group.meme_01.UserFunctions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +13,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Button;
 
+import cs3773group.meme_01.AdminFunctions.AdminAreaActivity;
+import cs3773group.meme_01.AdminFunctions.AdminViewUserActivity;
 import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
 
@@ -44,7 +47,16 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v){
-
+        if(v == bBack){
+            Intent intent = new Intent(InboxActivity.this, UserAreaActivity.class);
+            InboxActivity.this.startActivity(intent);
+        }
+        else if(v == bViewMessage){
+            //viewMessage;
+        }
+        else if(v == bDeleteMessage){
+            //userDeleteMessage;
+        }
     }
 
     public void createMessageList(int listLength) {
@@ -54,9 +66,9 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         for (int i = 0; i < listLength; i++) {
             RadioButton rbMessage = new RadioButton(this);
 
-            // REPLACE messageList.getID() with stuff
+            //REPLACE messageList.getID() with stuff
             rbMessage.setId(i);
-          //  rbMessage.setText(messageList.getId());
+            //rbMessage.setText(messageList.getId());
             messageList.addView(rbMessage);
         }
         ((ViewGroup) findViewById(R.id.listUsers)).addView(messageList);

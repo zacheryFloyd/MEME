@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,10 +39,8 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     private String online;
     private String lock;
 
-    /*
     private static final String LOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/lockUser.php";
     private static final String UNLOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/unlockUser.php";
-    */
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteUser.php";
 
     public static final String KEY_USERNAME = "user_name";
@@ -90,28 +90,98 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bLock){
-            //userChangeLockStatus(1);
+            userChangeLockStatus(1);
+            Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bUnlock){
-            //userChangeLockStatus(0);
+            userChangeLockStatus(0);
+            Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bDelete){
-            Log.d("bDelte","bDelte pressed");
             deleteUser();
+            Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            AdminViewUserActivity.this.startActivity(intent);
         }
     }
 
+    public void userChangeLockStatus(int status){
+        if(status == 0) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, UNLOCK_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                if (response != null) {
+                                    if (jsonResponse.getString("success").equals("true"))
+                                        Toast.makeText(AdminViewUserActivity.this, "User Successfully Unlocked", Toast.LENGTH_LONG).show();
+                                    else if (jsonResponse.getString("success").equals("false"))
+                                        Toast.makeText(AdminViewUserActivity.this, "User Unlocking Failed", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put(KEY_USERNAME, username);
+                    return map;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        }
+        else{
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, LOCK_URL,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                if (response != null) {
+                                    if (jsonResponse.getString("success").equals("true"))
+                                        Toast.makeText(AdminViewUserActivity.this, "User Successfully Locked", Toast.LENGTH_LONG).show();
+                                    else if (jsonResponse.getString("success").equals("false"))
+                                        Toast.makeText(AdminViewUserActivity.this, "User Locking Failed", Toast.LENGTH_LONG).show();
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> map = new HashMap<String, String>();
+                    map.put(KEY_USERNAME, username);
+                    return map;
+                }
+            };
+            RequestQueue requestQueue = Volley.newRequestQueue(this);
+            requestQueue.add(stringRequest);
+        }
+    }
 
     public void deleteUser(){
-        Log.d("delteUser", "inside deleteUser");
         StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_URL,
                 new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    Log.d("delete response)", response);
                     try {
                         JSONObject jsonResponse = new JSONObject(response);
-
                         if (response != null) {
                             if(jsonResponse.getString("success").equals("true"))
                                 Toast.makeText(AdminViewUserActivity.this, "User Successfully Deleted", Toast.LENGTH_LONG).show();
@@ -135,6 +205,8 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
                 return map;
             }
         };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 }
 

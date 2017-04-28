@@ -10,21 +10,21 @@ public class userModels implements Serializable{
 
     private String username;
     private String password;
-    private boolean isOnline;
-    private boolean isLocked;
+    private int isOnline;
+    private int isLocked;
 
     public userModels (){
         this.username = "";
         this.password = "";
-        this.isOnline = false;
-        this.isLocked = false;
+        this.isOnline = 0;
+        this.isLocked = 0;
     }
 
     public userModels(String username, String password){
         this.username = username;
         this.password = password;
-        this.isOnline = false;
-        this.isLocked = false;
+        this.isOnline = 0;
+        this.isLocked = 0;
     }
 
     public String getUsername() {
@@ -44,18 +44,28 @@ public class userModels implements Serializable{
     }
 
     public boolean isOnline() {
-        return isOnline;
+        if(this.isOnline == 0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
-    public void setOnline(boolean online) {
+    public void setOnline(int online) {
         isOnline = online;
     }
 
     public boolean isLocked() {
-        return isLocked;
+        if(this.isLocked == 0){
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
-    public void setLocked(boolean locked) {
+    public void setLocked(int locked) {
         isLocked = locked;
     }
 }
