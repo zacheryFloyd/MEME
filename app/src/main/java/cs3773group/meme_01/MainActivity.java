@@ -25,6 +25,7 @@ import java.util.Map;
 
 import cs3773group.meme_01.AdminFunctions.AdminAreaActivity;
 import cs3773group.meme_01.Models.adminModelz;
+import cs3773group.meme_01.UserFunctions.UserAreaActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/login.php";

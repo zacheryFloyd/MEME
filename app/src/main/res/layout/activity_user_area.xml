@@ -8,7 +8,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="cs3773group.meme_01.UserAreaActivity">
+    tools:context="cs3773group.meme_01.UserFunctions.UserAreaActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -46,6 +46,7 @@
                 android:layout_height="12dp"
                 android:layout_weight="1" />
 
+<<<<<<< Updated upstream
             <Button
                 android:id="@+id/bCompose"
                 android:layout_width="match_parent"
@@ -62,6 +63,8 @@
                 android:layout_height="wrap_content"
                 android:text="View Inbox" />
 
+=======
+>>>>>>> Stashed changes
         </LinearLayout>
     </ScrollView>
 

@@ -34,6 +34,9 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     private Button bUnlock;
     private Button bDelete;
     private String username;
+    private String online;
+    private String lock;
+
     /*
     private static final String LOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/lockUser.php";
     private static final String UNLOCK_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/unlockUser.php";
@@ -49,6 +52,9 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_admin_view_user);
 
         final TextView txUsername = (TextView) findViewById(R.id.txUsername);
+        final TextView txOnline = (TextView) findViewById(R.id.txOnline);
+        final TextView txLock = (TextView) findViewById(R.id.txLock);
+
         bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(this);
         bLock = (Button) findViewById(R.id.bLock);
@@ -69,8 +75,12 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
+        online = intent.getStringExtra("online");
+        lock = intent.getStringExtra("lock");
 
         txUsername.setText(username);
+        txOnline.setText(online);
+        txLock.setText(lock);
     }
 
     @Override
@@ -80,10 +90,10 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bLock){
-            //lockUser();
+            //userChangeLockStatus(0);
         }
         else if(v == bUnlock){
-            //unlockUser();
+            //userChangeLockStatus(1);
         }
         else if(v == bDelete){
             Log.d("bDelte","bDelte pressed");
@@ -128,6 +138,40 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     }
 }
 
+/*public void userChangeLockStatus(int status){
+    StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_URL,
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    Log.d("delete response)", response);
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+
+                        if (response != null) {
+                            if(jsonResponse.getString("success").equals("true"))
+                                Toast.makeText(AdminViewUserActivity.this, "User Successfully Deleted", Toast.LENGTH_LONG).show();
+                            else if(jsonResponse.getString("success").equals("false"))
+                                Toast.makeText(AdminViewUserActivity.this, "User Deletion Failed", Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                }
+            }) {
+        @Override
+        protected Map<String, String> getParams() throws AuthFailureError {
+            Map<String, String> map = new HashMap<String, String>();
+            map.put(KEY_USERNAME, username);
+            return map;
+        }
+    };
+}
+*/
 /* JSON SHIT FOR (UN)LOCKING AND DELETE USERS
 StringRequest stringRequest = new StringRequest(Request.Method.POST, LOGIN_URL,
                 new Response.Listener<String>() {

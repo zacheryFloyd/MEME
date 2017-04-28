@@ -1,18 +1,28 @@
-package cs3773group.meme_01;
+package cs3773group.meme_01.UserFunctions;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class UserAreaActivity extends AppCompatActivity {
+import cs3773group.meme_01.MainActivity;
+import cs3773group.meme_01.R;
+
+public class UserAreaActivity extends AppCompatActivity implements View.OnClickListener{
+    private Button bCompose;
+    private Button bInbox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_area);
+
+        bCompose = (Button) findViewById(R.id.bCompose);
+        bCompose.setOnClickListener(this);
+        bInbox = (Button) findViewById(R.id.bInbox);
+        bInbox.setOnClickListener(this);
 
         final TextView txUsername = (TextView) findViewById(R.id.txUsername);
         final TextView txType = (TextView) findViewById(R.id.txType);
@@ -28,9 +38,6 @@ public class UserAreaActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("username");
-        String type = intent.getStringExtra("type");
-
         txUsername.setText(username);
-        txType.setText(type);
     }
 }

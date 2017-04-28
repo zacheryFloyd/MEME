@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".UserAreaActivity" />
+        <activity android:name=".UserFunctions.UserAreaActivity" />
         <activity android:name=".AdminFunctions.AdminAreaActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ResetPasswordActivity" />

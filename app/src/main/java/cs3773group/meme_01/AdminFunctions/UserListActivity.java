@@ -72,6 +72,18 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
 
             Intent intent = new Intent(UserListActivity.this, AdminViewUserActivity.class);
             intent.putExtra("username", userButton.getText());
+            if(users.get(selectedId).isOnline()){
+                intent.putExtra("online", "ONLINE");
+            }
+            else{
+                intent.putExtra("online","OFFLINE");
+            }
+            if(users.get(selectedId).isLocked()){
+                intent.putExtra("lock", "LOCKED");
+            }
+            else{
+                intent.putExtra("lock","UNLOCKED");
+            }
             UserListActivity.this.startActivity(intent);
         }
     }
@@ -84,6 +96,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
             RadioButton rbUser = new RadioButton(this);
 
             // REPLACE i WITH VARIABLE CONTAINING USERNAME
+            rbUser.setId(i);
             rbUser.setText(users.get(i).getUsername());
             userList.addView(rbUser);
         }
