@@ -25,7 +25,7 @@
 
         <EditText
             android:id="@+id/txRecipient"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Timer"
-            android:inputType="time"
+            android:inputType="number"
             android:textSize="14sp" />
     </LinearLayout>
 
@@ -62,18 +62,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Encryption"
+            android:hint="Encryption Key"
             android:inputType="textPersonName" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <EditText
