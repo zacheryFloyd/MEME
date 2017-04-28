@@ -10,7 +10,7 @@ import cs3773group.meme_01.R;
  * Created by Tom on 4/28/2017.
  */
 
-public class MessageActivity extends AppCompatActivity implements View.OnClickListener {
+public class ComposeMessageActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

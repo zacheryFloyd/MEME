@@ -4,12 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+<<<<<<< Updated upstream
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+=======
+import android.widget.Button;
+>>>>>>> Stashed changes
 
 import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
@@ -19,11 +23,17 @@ import cs3773group.meme_01.R;
  */
 
 public class InboxActivity extends AppCompatActivity implements View.OnClickListener {
+<<<<<<< Updated upstream
     private Button bSelectUser;
     private Button bBack;
     private RadioGroup messageList;
     private RadioButton messageButton;
 
+=======
+    private Button bViewMessage;
+    private Button bDeleteMessage;
+    private Button bBack;
+>>>>>>> Stashed changes
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

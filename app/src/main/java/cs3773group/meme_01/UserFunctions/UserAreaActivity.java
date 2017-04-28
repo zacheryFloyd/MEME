@@ -46,7 +46,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v){
         if(v == bCompose) {
-            Intent intent = new Intent(UserAreaActivity.this, MessageActivity.class);
+            Intent intent = new Intent(UserAreaActivity.this, ComposeMessageActivity.class);
             UserAreaActivity.this.startActivity(intent);
         }
         else if(v == bInbox){

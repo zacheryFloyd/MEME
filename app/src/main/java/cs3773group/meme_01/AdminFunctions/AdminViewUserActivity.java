@@ -90,10 +90,10 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bLock){
-            //userChangeLockStatus(0);
+            //userChangeLockStatus(1);
         }
         else if(v == bUnlock){
-            //userChangeLockStatus(1);
+            //userChangeLockStatus(0);
         }
         else if(v == bDelete){
             Log.d("bDelte","bDelte pressed");
