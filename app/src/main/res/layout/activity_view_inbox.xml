@@ -40,7 +40,7 @@
             android:id="@+id/bViewMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select User" />
+            android:text="Open Message" />
 
         <Button
             android:id="@+id/bDeleteMessage"
@@ -48,12 +48,28 @@
             android:layout_height="wrap_content"
             android:text="Delete Message" />
 
-        <Button
-            android:id="@+id/bBack"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.25"
-            android:text="Back" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/bBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="Back" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
 
     </LinearLayout>
 
