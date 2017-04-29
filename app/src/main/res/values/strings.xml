@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MEME</string>
+    <string name="title_activity_encryption_pop_up">EncryptionPopUpActivity</string>
 </resources>

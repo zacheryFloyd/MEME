@@ -8,7 +8,8 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="cs3773group.meme_01.MainActivity">
+    tools:context="cs3773group.meme_01.MainActivity"
+    android:weightSum="1">
 
     <EditText
         android:id="@+id/txUsername"
@@ -31,6 +32,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.07" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,6 +62,11 @@
             android:layout_weight="1" />
 
     </LinearLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.06" />
 
     <LinearLayout
         android:layout_width="match_parent"
