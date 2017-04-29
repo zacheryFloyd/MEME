@@ -44,7 +44,7 @@ public class userModels implements Serializable{
     }
 
     public boolean isOnline() {
-        if(this.isOnline == 0){
+        if(this.isOnline == 1){
             return true;
         }
         else{

@@ -15,6 +15,7 @@ import cs3773group.meme_01.R;
 public class UserAreaActivity extends AppCompatActivity implements View.OnClickListener{
     private Button bCompose;
     private Button bInbox;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
         });
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
+        username = intent.getStringExtra("username");
         txUsername.setText(username);
     }
 
@@ -47,6 +48,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v){
         if(v == bCompose) {
             Intent intent = new Intent(UserAreaActivity.this, ComposeMessageActivity.class);
+            intent.putExtra("sender",username);
             UserAreaActivity.this.startActivity(intent);
         }
         else if(v == bInbox){

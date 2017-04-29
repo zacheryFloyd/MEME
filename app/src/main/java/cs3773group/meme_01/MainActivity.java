@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -24,11 +25,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cs3773group.meme_01.AdminFunctions.AdminAreaActivity;
+import cs3773group.meme_01.AdminFunctions.AdminViewUserActivity;
 import cs3773group.meme_01.Models.adminModelz;
 import cs3773group.meme_01.UserFunctions.UserAreaActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/login.php";
+    private static final String ONLINE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/userOnline.php";
+    public static final String KEY_ONLINENAME = "user_name";
     public static final String KEY_USERNAME = "user_name";
     public static final String KEY_PASSWORD = "user_pw";
 
@@ -70,6 +74,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bLogin = (Button) findViewById(R.id.bLogin);
         bLogin.setOnClickListener(this);
     }
+
+    private void userOnline(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, ONLINE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if(response != null) {
+                                if (response != null) {
+                                    if (jsonResponse.getString("success").equals("true"))
+                                        Toast.makeText(MainActivity.this, "User Successfully Online", Toast.LENGTH_LONG).show();
+                                    else if (jsonResponse.getString("success").equals("false"))
+                                        Toast.makeText(MainActivity.this, "User Onlining Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put(KEY_ONLINENAME,user_name.toString());
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
     private void userLogin() {
         user_name = txUsername.getText().toString().trim();
         user_pw = txPassword.getText().toString().trim();
@@ -84,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 String username = jsonResponse.getJSONObject("user").getInt("name")+"";
                                 //Integer username = jsonResponse.getJSONObject("user").getInt("name");
                                 String user_type = jsonResponse.getJSONObject("user").getString("type");
+                                String user_lock_status = jsonResponse.getJSONObject("user").getString("locked");
                                 String type = jsonResponse.getString("user_id");
                                 Log.d("Test", response.toString());
                                 Intent intent = new Intent();
@@ -93,14 +135,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     intent.putExtra("type", user_type);
                                     MainActivity.this.startActivity(intent);
                                 }
-                                if(user_type.equals("U")) {
+                                else if(user_type.equals("U") && user_lock_status.equals("0")) {
                                     intent = new Intent(MainActivity.this, UserAreaActivity.class);
                                     intent.putExtra("username", username);
                                     intent.putExtra("type", user_type);
                                     MainActivity.this.startActivity(intent);
                                 }
+                                else{
+                                    Toast.makeText(MainActivity.this, "Login Failed, You Are Locked", Toast.LENGTH_LONG).show();
+                                }
                             }
-
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -119,14 +163,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return map;
             }
         };
-
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
     @Override
     public void onClick(View v) {
         if(v == bLogin){
             userLogin();
+            userOnline();
         }
     }
 }
