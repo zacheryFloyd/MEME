@@ -134,12 +134,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                     intent.putExtra("username", username);
                                     intent.putExtra("type", user_type);
                                     MainActivity.this.startActivity(intent);
+                                    userOnline();
                                 }
                                 else if(user_type.equals("U") && user_lock_status.equals("0")) {
                                     intent = new Intent(MainActivity.this, UserAreaActivity.class);
                                     intent.putExtra("username", username);
                                     intent.putExtra("type", user_type);
                                     MainActivity.this.startActivity(intent);
+                                    userOnline();
                                 }
                                 else{
                                     Toast.makeText(MainActivity.this, "Login Failed, You Are Locked", Toast.LENGTH_LONG).show();
@@ -171,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == bLogin){
             userLogin();
-            userOnline();
         }
     }
 }
