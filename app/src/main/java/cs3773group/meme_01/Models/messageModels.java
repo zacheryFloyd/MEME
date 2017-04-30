@@ -76,4 +76,11 @@ public class messageModels implements Serializable {
         this.lifeSpan = lifeSpan;
     }
 
+    public void setMsgID(int id){
+        this.msgID = id;
+    }
+    public int getMsgID(){
+        return this.msgID;
+    }
+
 }

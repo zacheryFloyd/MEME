@@ -33,6 +33,7 @@ import cs3773group.meme_01.R;
 public class UserAreaActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String GET_MESSAGES_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/getInbox.php";
     public static final String KEY_USERNAME = "receiver_name";
+
     private Button bCompose;
     private Button bInbox;
     private String username;
@@ -87,6 +88,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
                                     message.setSenderID(jsonMessage.getJSONObject("message").getString("sender"));
                                     message.setReceiverID(jsonMessage.getJSONObject("message").getString("receiver"));
                                     message.setLifeSpan(jsonMessage.getJSONObject("message").getInt("life"));
+                                    message.setMsgID(jsonMessage.getJSONObject("message").getInt("id"));
                                     if(!jsonMessage.getJSONObject("message").getString("key").isEmpty()){
                                         message.setEncryptionMethods(jsonMessage.getJSONObject("message").getString("key"));
                                     }

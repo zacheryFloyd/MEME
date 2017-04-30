@@ -1,9 +1,26 @@
 package cs3773group.meme_01.UserFunctions;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import cs3773group.meme_01.Models.messageModels;
 import cs3773group.meme_01.R;
 
 /**
@@ -12,10 +29,15 @@ import cs3773group.meme_01.R;
 
 public class ViewMessageActivity  extends AppCompatActivity implements View.OnClickListener {
 
+    private messageModels message;
+    private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteMessage.php";
+    public static final String KEY_ID = "message_id";
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_view_message);
-
+        Intent intent = getIntent();
+        message = (messageModels) intent.getSerializableExtra("message");
     }
 
     @Override
@@ -23,5 +45,37 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
 
     }
 
-
+    public void userDeleteMessage(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if (response != null) {
+                                if(jsonResponse.getString("success").equals("true"))
+                                    Toast.makeText(ViewMessageActivity.this, "Message Successfully Deleted", Toast.LENGTH_LONG).show();
+                                else if(jsonResponse.getString("success").equals("false"))
+                                    Toast.makeText(ViewMessageActivity.this, "Message Deletion Failed", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put(KEY_ID, message.getMsgID()+"");
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
 }
