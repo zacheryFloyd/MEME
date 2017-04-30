@@ -28,6 +28,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     private Button bViewMessage;
     private Button bDeleteMessage;
     private Button bBack;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +41,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         bBack.setOnClickListener(this);
 
         Intent intent = getIntent();
-
+        username = intent.getStringExtra("username");
         // REPLACE 0 WITH listsz
         createMessageList(1);
     }
@@ -49,6 +50,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v){
         if(v == bBack){
             Intent intent = new Intent(InboxActivity.this, UserAreaActivity.class);
+            intent.putExtra("username",username);
             InboxActivity.this.startActivity(intent);
         }
         else if(v == bViewMessage){
