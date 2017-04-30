@@ -82,9 +82,12 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             InboxActivity.this.startActivity(intent);
         }
         else if(v == bViewMessage){
-            int selectedId = messageList.getCheckedRadioButtonId();
+            int selectedID = messageList.getCheckedRadioButtonId();
             Intent intent = new Intent(InboxActivity.this, ViewMessageActivity.class);
-            intent.putExtra("message",messages.get(selectedId));
+            intent.putExtra("message",messages.get(selectedID));
+            deleteId = messages.get(selectedID).getMsgID();
+            Log.d("DELETE: ",deleteId+"");
+            userDeleteMessage();
             InboxActivity.this.startActivity(intent);
         }
         else if(v == bDeleteMessage){

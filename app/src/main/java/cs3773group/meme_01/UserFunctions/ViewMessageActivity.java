@@ -36,7 +36,6 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
     private TextView messageText;
     private TextView messageTime;
     private TextView messageSender;
-    private Button bDeleteMessage;
     private Button bBack;
     private String username;
     public int deleteId;
@@ -48,8 +47,6 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
         Intent intent = getIntent();
         setContentView(R.layout.activity_user_view_message);
         message = (messageModels) intent.getSerializableExtra("message");
-        bDeleteMessage = (Button) findViewById(R.id.bDeleteMessage);
-        bDeleteMessage.setOnClickListener(this);
         bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(this);
         messageText = (TextView) findViewById(R.id.txMessage);
@@ -64,14 +61,6 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
     @Override
     public void onClick(View v){
         if(v == bBack){
-            Intent intent = new Intent(ViewMessageActivity.this, UserAreaActivity.class);
-            intent.putExtra("username",username);
-            ViewMessageActivity.this.startActivity(intent);
-        }
-        else if(v == bDeleteMessage){
-            deleteId = message.getMsgID();
-            Log.d("DELETE: ",deleteId+"");
-            userDeleteMessage();
             Intent intent = new Intent(ViewMessageActivity.this, UserAreaActivity.class);
             intent.putExtra("username",username);
             ViewMessageActivity.this.startActivity(intent);
