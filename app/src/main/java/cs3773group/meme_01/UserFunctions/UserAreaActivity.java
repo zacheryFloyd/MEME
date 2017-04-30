@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -31,6 +32,8 @@ import cs3773group.meme_01.Models.messageModels;
 import cs3773group.meme_01.R;
 
 public class UserAreaActivity extends AppCompatActivity implements View.OnClickListener{
+    private static final String OFFLINE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/userOffline.php";
+    public static final String KEY_OFFLINENAME = "user_name";
     private static final String GET_MESSAGES_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/getInbox.php";
     public static final String KEY_USERNAME = "receiver_name";
 
@@ -54,14 +57,52 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
         logoutLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userOffline();
                 Intent registerIntent = new Intent(UserAreaActivity.this, MainActivity.class);
                 UserAreaActivity.this.startActivity(registerIntent);
+
             }
         });
 
         Intent intent = getIntent();
         username = intent.getStringExtra("username");
         txUsername.setText(username);
+    }
+
+    private void userOffline(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OFFLINE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if(response != null) {
+                                if (response != null) {
+                                    if (jsonResponse.getString("success").equals("true"))
+                                        Toast.makeText(UserAreaActivity.this, "User Successfully Offline", Toast.LENGTH_LONG).show();
+                                    else if (jsonResponse.getString("success").equals("false"))
+                                        Toast.makeText(UserAreaActivity.this, "User Offlining Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put(KEY_OFFLINENAME,username);
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     public void getMessages() {
@@ -76,8 +117,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
                              */
                             JSONArray jsonMessageArray = new JSONArray(response);
                             if (response != null) {
-                                ArrayList<messageModels> messages = new ArrayList<messageModels>(); // will hold list of users
-                                Integer len = response.length();
+                                ArrayList<messageModels> messages = new ArrayList<messageModels>(); // will hold list of messages
                                 for (int i = 0; i<jsonMessageArray.length(); i++) {
                                     JSONObject jsonMessage = new JSONObject();
                                     jsonMessage = jsonMessageArray.getJSONObject(i);  //one user object from the JSON
@@ -99,6 +139,9 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
                                 intent.putExtra("messages", messages);
                                 intent.putExtra("username",username);
                                 UserAreaActivity.this.startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(UserAreaActivity.this, "No Messages To Display", Toast.LENGTH_LONG).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

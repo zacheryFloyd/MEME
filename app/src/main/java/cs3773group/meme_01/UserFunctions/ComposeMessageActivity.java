@@ -71,7 +71,6 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
         messageText = (EditText) findViewById(R.id.editText4);
         encryption = (EditText) findViewById(R.id.txEncryption);
         encryptionCheck = (CheckBox) findViewById(R.id.checkBox);
-
     }
 
     public void createMessage(){
@@ -166,20 +165,12 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
     public void onClick(View v){
         if(v == bBack){
             Intent intent = new Intent(ComposeMessageActivity.this, UserAreaActivity.class);
+            intent.putExtra("username",message.getSenderID());
             ComposeMessageActivity.this.startActivity(intent);
         }
         if(v == bSend){
             createMessage();
-
             checkIfRecepientIsOnline();
-//            Log.d("RET:",ret+"");
-//            Log.d("STR RET:", strRet);
-//            if(ret == true){
-//                sendMessage();
-//            }
-//            else{
-//                Toast.makeText(ComposeMessageActivity.this, "Recepient Not Online", Toast.LENGTH_LONG).show();
-//            }
         }
     }
 }

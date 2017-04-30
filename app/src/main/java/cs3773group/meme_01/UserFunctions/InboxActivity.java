@@ -85,6 +85,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             int selectedId = messageList.getCheckedRadioButtonId();
             Intent intent = new Intent(InboxActivity.this, ViewMessageActivity.class);
             intent.putExtra("message",messages.get(selectedId));
+            InboxActivity.this.startActivity(intent);
         }
         else if(v == bDeleteMessage){
             int selectedID = messageList.getCheckedRadioButtonId();
