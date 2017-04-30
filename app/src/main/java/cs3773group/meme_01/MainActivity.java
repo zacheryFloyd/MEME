@@ -122,7 +122,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         try {
                             JSONObject jsonResponse = new JSONObject(response);
                             if(response != null) {
-                                String username = jsonResponse.getJSONObject("user").getInt("name")+"";
+                                Log.d("login json: ", jsonResponse.toString());
+                                String username = jsonResponse.getJSONObject("user").getString("name");
+                                //String username = jsonResponse.getJSONObject("user").getInt("name")+"";
                                 //Integer username = jsonResponse.getJSONObject("user").getInt("name");
                                 String user_type = jsonResponse.getJSONObject("user").getString("type");
                                 String user_lock_status = jsonResponse.getJSONObject("user").getString("locked");
@@ -160,8 +162,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> map = new HashMap<>();
+                Log.d("username: ", user_name);
+                Log.d("password: ", user_pw);
                 map.put(KEY_USERNAME,user_name.toString());
-                map.put(KEY_PASSWORD,user_pw);
+                map.put(KEY_PASSWORD,user_pw.toString());
                 return map;
             }
         };
