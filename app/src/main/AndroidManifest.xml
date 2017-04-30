@@ -26,8 +26,8 @@
         <activity android:name=".AdminFunctions.AdminViewUserActivity" />
         <activity android:name=".UserFunctions.ComposeMessageActivity"/>
         <activity android:name=".UserFunctions.InboxActivity"/>
-        <activity android:name=".UserFunctions.ViewMessageActivity">
-        </activity>
+        <activity android:name=".UserFunctions.ViewMessageActivity"/>
+
     </application>
 
 </manifest>

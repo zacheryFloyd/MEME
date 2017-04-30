@@ -42,7 +42,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = getIntent();
 
         // REPLACE 0 WITH listsz
-        createMessageList(0);
+        createMessageList(1);
     }
 
     @Override
@@ -71,6 +71,6 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             //rbMessage.setText(messageList.getId());
             messageList.addView(rbMessage);
         }
-        ((ViewGroup) findViewById(R.id.listUsers)).addView(messageList);
+        ((ViewGroup) findViewById(R.id.listMessages)).addView(messageList);
     }
 }
