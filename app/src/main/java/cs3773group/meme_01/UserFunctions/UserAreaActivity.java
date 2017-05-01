@@ -58,10 +58,10 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
         logoutLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userDeleteAllMessages();
                 userOffline();
                 Intent registerIntent = new Intent(UserAreaActivity.this, MainActivity.class);
                 UserAreaActivity.this.startActivity(registerIntent);
-                userDeleteAllMessages();
             }
         });
 
