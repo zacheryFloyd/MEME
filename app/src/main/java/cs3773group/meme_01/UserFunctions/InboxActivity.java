@@ -85,9 +85,6 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             int selectedID = messageList.getCheckedRadioButtonId();
             Intent intent = new Intent(InboxActivity.this, ViewMessageActivity.class);
             intent.putExtra("message",messages.get(selectedID));
-            deleteId = messages.get(selectedID).getMsgID();
-            Log.d("DELETE: ",deleteId+"");
-            userDeleteMessage();
             InboxActivity.this.startActivity(intent);
         }
         else if(v == bDeleteMessage){
@@ -108,7 +105,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         for (int i = 0; i < listLength; i++) {
             RadioButton rbMessage = new RadioButton(this);
             rbMessage.setId(i);
-            rbMessage.setText(messages.get(i).getMsgID() + ":Message from: " + messages.get(i).getSenderID());
+            rbMessage.setText("Message from: " + messages.get(i).getSenderID() + "  - Timer: " + messages.get(i).getLifeSpan());
             messageList.addView(rbMessage);
         }
         ((ViewGroup) findViewById(R.id.listMessages)).addView(messageList);

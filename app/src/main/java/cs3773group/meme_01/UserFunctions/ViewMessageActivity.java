@@ -2,6 +2,7 @@ package cs3773group.meme_01.UserFunctions;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -37,6 +38,7 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
     private TextView messageTime;
     private TextView messageSender;
     private Button bBack;
+  //  private Button bReply;
     private String username;
     public int deleteId;
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteMessage.php";
@@ -56,11 +58,27 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
         messageSender = (TextView) findViewById(R.id.txSender);
         messageSender.setText(message.getSenderID());
         username = message.getReceiverID();
+
+        new CountDownTimer(message.getLifeSpan()*1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                messageTime.setText("seconds remaining: " + millisUntilFinished / 1000);
+            }
+
+            public void onFinish() {
+                userDeleteMessage();
+                Intent intent = new Intent(ViewMessageActivity.this, UserAreaActivity.class);
+                intent.putExtra("username",username);
+                ViewMessageActivity.this.startActivity(intent);
+            }
+
+        }.start();
     }
 
     @Override
     public void onClick(View v){
         if(v == bBack){
+            userDeleteMessage();
             Intent intent = new Intent(ViewMessageActivity.this, UserAreaActivity.class);
             intent.putExtra("username",username);
             ViewMessageActivity.this.startActivity(intent);
