@@ -95,6 +95,9 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             deleteId = messages.get(selectedID).getMsgID();
             Log.d("DELETE: ",deleteId+"");
             userDeleteMessage();
+            Intent intent = new Intent(InboxActivity.this, UserAreaActivity.class);
+            intent.putExtra("username",username);
+            InboxActivity.this.startActivity(intent);
         }
     }
 

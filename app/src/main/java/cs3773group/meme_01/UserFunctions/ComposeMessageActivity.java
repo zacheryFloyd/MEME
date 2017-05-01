@@ -171,6 +171,9 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
         if(v == bSend){
             createMessage();
             checkIfRecepientIsOnline();
+            Intent intent = new Intent(ComposeMessageActivity.this, UserAreaActivity.class);
+            intent.putExtra("username",message.getSenderID());
+            ComposeMessageActivity.this.startActivity(intent);
         }
     }
 }
