@@ -1,8 +1,11 @@
 package cs3773group.meme_01.AdminFunctions;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +34,8 @@ import java.util.Random;
 import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
 import cs3773group.meme_01.Models.userModels;
+import cs3773group.meme_01.UserFunctions.InboxActivity;
+import cs3773group.meme_01.UserFunctions.ViewMessageActivity;
 
 public class AdminAreaActivity extends AppCompatActivity implements View.OnClickListener{
     private String userUsername;
@@ -197,6 +202,20 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v) {
         if(v == bCreateUser){
             addUserToDatabase();
+            //Popup displaying new user creds
+            String usernameString = ("Username: " + userUsername);
+            String userpasswordString = ("Password: " + userPassword);
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setTitle("New User Credentials");
+            builder.setMessage(usernameString + "\n\n" + userpasswordString);
+            builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
         }
         else if(v == bDisplayUsers){
             //get list of users, and hand it off to next activity
