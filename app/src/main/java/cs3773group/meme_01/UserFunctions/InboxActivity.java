@@ -1,12 +1,16 @@
 package cs3773group.meme_01.UserFunctions;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -51,6 +55,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     private String username;
     private ArrayList<messageModels> messages;
     public int deleteId;
+    private String mUserInputKey = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +87,45 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             InboxActivity.this.startActivity(intent);
         }
         else if(v == bViewMessage){
-            int selectedID = messageList.getCheckedRadioButtonId();
+            final int selectedID = messageList.getCheckedRadioButtonId();
             Intent intent = new Intent(InboxActivity.this, ViewMessageActivity.class);
             intent.putExtra("message",messages.get(selectedID));
-            InboxActivity.this.startActivity(intent);
+            if(messages.get(selectedID).getEncryptionKey().isEmpty())
+                InboxActivity.this.startActivity(intent);
+            else {
+                //Popup asking for encryption key
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Please Enter Encryption Key");
+
+                // Set up the input
+                final EditText input = new EditText(this);
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mUserInputKey = input.getText().toString();
+                        if(mUserInputKey.equals((messages.get(selectedID).getEncryptionKey()))) {
+                            Intent intent = new Intent(InboxActivity.this, ViewMessageActivity.class);
+                            intent.putExtra("message", messages.get(selectedID));
+                            InboxActivity.this.startActivity(intent);
+                        } else {
+                            Toast.makeText(InboxActivity.this, "Incorrect Encryption Key", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
         }
         else if(v == bDeleteMessage){
             int selectedID = messageList.getCheckedRadioButtonId();

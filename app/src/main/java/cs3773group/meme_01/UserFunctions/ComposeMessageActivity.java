@@ -75,7 +75,7 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
 
     public void createMessage(){
         if(encryptionCheck.isChecked()) {
-            message.setEncryptionMethods(encryption.getText().toString());
+            message.setEncryptionKey(encryption.getText().toString());
         }
         message.setText(messageText.getText().toString());
         message.setLifeSpan(Integer.parseInt(timeLimit.getText().toString()));
@@ -151,7 +151,7 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
                 Map<String, String> map = new HashMap<String, String>();
                 map.put(KEY_SENDERNAME, message.getSenderID());
                 map.put(KEY_RECEIVERNAME, message.getReceiverID());
-                map.put(KEY_ENC, message.getEncryptionMethods());
+                map.put(KEY_ENC, message.getEncryptionKey());
                 map.put(KEY_TEXT, message.getText());
                 map.put(KEY_LIFESPAN, message.getLifeSpan()+"");
                 return map;

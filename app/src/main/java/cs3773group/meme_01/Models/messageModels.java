@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class messageModels implements Serializable {
     private String text;
-    private String encryptionMethods;
+    private String encryptionKey;
     private int lifeSpan; //seconds
     private String senderID;
     private String receiverID;
@@ -19,7 +19,7 @@ public class messageModels implements Serializable {
 
     public messageModels(){
         this.text = "";
-        this.encryptionMethods = "";
+        this.encryptionKey = "";
         this.lifeSpan = 15;
         senderID = "";
         receiverID = "";
@@ -27,9 +27,9 @@ public class messageModels implements Serializable {
 
     }
 
-    public messageModels(String text, String encryptionMethods, int lifeSpan, String senderID, String receiverID, int msgID){
+    public messageModels(String text, String encryptionKey, int lifeSpan, String senderID, String receiverID, int msgID){
         this.text = text;
-        this.encryptionMethods = encryptionMethods;
+        this.encryptionKey = encryptionKey;
         this.lifeSpan = lifeSpan;
         this.senderID = senderID;
         this.receiverID = receiverID;
@@ -52,12 +52,12 @@ public class messageModels implements Serializable {
         this.text = text;
     }
 
-    public String getEncryptionMethods() {
-        return encryptionMethods;
+    public String getEncryptionKey() {
+        return encryptionKey;
     }
 
-    public void setEncryptionMethods(String encryptionMethods) {
-        this.encryptionMethods = encryptionMethods;
+    public void setEncryptionKey(String encryptionKey) {
+        this.encryptionKey = encryptionKey;
     }
 
     public String getReceiverID() {

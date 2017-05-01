@@ -131,7 +131,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
                                     message.setLifeSpan(jsonMessage.getJSONObject("message").getInt("life"));
                                     message.setMsgID(jsonMessage.getJSONObject("message").getInt("id"));
                                     if(!jsonMessage.getJSONObject("message").getString("key").isEmpty()){
-                                        message.setEncryptionMethods(jsonMessage.getJSONObject("message").getString("key"));
+                                        message.setEncryptionKey(jsonMessage.getJSONObject("message").getString("key"));
                                     }
                                     Log.d("MESSAGE", message.getText());
                                     messages.add(message);
