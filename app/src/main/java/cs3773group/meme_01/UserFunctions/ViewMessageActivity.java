@@ -43,6 +43,7 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
     public int deleteId;
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteMessage.php";
     public static final String KEY_ID = "message_id";
+    public CountDownTimer countdownTimer;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,8 +63,7 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
         messageSender = (TextView) findViewById(R.id.txSender);
         messageSender.setText(message.getSenderID());
         username = message.getReceiverID();
-
-        new CountDownTimer(message.getLifeSpan()*1000, 1000) {
+        countdownTimer = new CountDownTimer(message.getLifeSpan()*1000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 messageTime.setText("seconds remaining: " + millisUntilFinished / 1000);
@@ -93,6 +93,7 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
             intent.putExtra("replySender",message.getSenderID());
             intent.putExtra("replyCheck", true);
             ViewMessageActivity.this.startActivity(intent);
+            countdownTimer.cancel();
             finish();
         }
     }

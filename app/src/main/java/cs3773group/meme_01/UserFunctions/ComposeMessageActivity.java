@@ -54,7 +54,7 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
     private messageModels message;
     private Intent intent;
     private String replySender;
-    private Boolean replyCheck;
+    private boolean replyCheck;
     public boolean ret = false;
     public String strRet = "";
 
