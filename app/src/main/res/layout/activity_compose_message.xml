@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.71"
             android:ems="10"
-            android:hint="Recipient(s)"
+            android:hint="Recipient"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -49,22 +49,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:checked="false"
-            android:text="Encrypt?" />
-
         <EditText
             android:id="@+id/txEncryption"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Encryption Key"
-            android:inputType="textPersonName" />
+            android:hint="Optional Encryption Key"
+            android:inputType="textPersonName"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <ScrollView
