@@ -36,6 +36,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
     public static final String KEY_OFFLINENAME = "user_name";
     private static final String GET_MESSAGES_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/getInbox.php";
     public static final String KEY_USERNAME = "receiver_name";
+    public static final String DELETE_ALL_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteInbox.php";
 
     private Button bCompose;
     private Button bInbox;
@@ -60,7 +61,7 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
                 userOffline();
                 Intent registerIntent = new Intent(UserAreaActivity.this, MainActivity.class);
                 UserAreaActivity.this.startActivity(registerIntent);
-
+                userDeleteAllMessages();
             }
         });
 
@@ -156,6 +157,40 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<>();
+                map.put(KEY_USERNAME, username);
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
+    public void userDeleteAllMessages(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, DELETE_ALL_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if (response != null) {
+                                if(jsonResponse.getString("success").equals("true"))
+                                    Toast.makeText(UserAreaActivity.this, "Message Successfully Deleted", Toast.LENGTH_LONG).show();
+                                else if(jsonResponse.getString("success").equals("false"))
+                                    Toast.makeText(UserAreaActivity.this, "Message Deletion Failed", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<String, String>();
                 map.put(KEY_USERNAME, username);
                 return map;
             }
