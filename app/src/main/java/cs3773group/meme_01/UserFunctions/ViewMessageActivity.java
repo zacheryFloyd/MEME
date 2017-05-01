@@ -38,7 +38,7 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
     private TextView messageTime;
     private TextView messageSender;
     private Button bBack;
-  //  private Button bReply;
+    private Button bReply;
     private String username;
     public int deleteId;
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteMessage.php";
@@ -49,8 +49,12 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
         Intent intent = getIntent();
         setContentView(R.layout.activity_user_view_message);
         message = (messageModels) intent.getSerializableExtra("message");
+
         bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(this);
+        bReply = (Button) findViewById(R.id.bReply);
+        bReply.setOnClickListener(this);
+
         messageText = (TextView) findViewById(R.id.txMessage);
         messageText.setText(message.getText());
         messageTime = (TextView) findViewById(R.id.txTime);
@@ -82,6 +86,14 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
             Intent intent = new Intent(ViewMessageActivity.this, UserAreaActivity.class);
             intent.putExtra("username",username);
             ViewMessageActivity.this.startActivity(intent);
+        }
+        if(v == bReply){
+            userDeleteMessage();
+            Intent intent = new Intent(ViewMessageActivity.this, ComposeMessageActivity.class);
+            intent.putExtra("replySender",message.getSenderID());
+            intent.putExtra("replyCheck", true);
+            ViewMessageActivity.this.startActivity(intent);
+            finish();
         }
     }
 

@@ -44,17 +44,20 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
     public static final String KEY_TEXT= "message_text";
     public static final String KEY_LIFESPAN = "message_life";
 
-    private EditText recepients;
+    private EditText recipients;
     private EditText timeLimit;
     private EditText messageText;
     private EditText encryption;
-    private CheckBox encryptionCheck;
+//    private CheckBox encryptionCheck;
     private Button bSend;
     private Button bBack;
     private messageModels message;
     private Intent intent;
+    private String replySender;
+    private Boolean replyCheck;
     public boolean ret = false;
     public String strRet = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,20 +69,27 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
         bBack.setOnClickListener(this);
         bSend = (Button) findViewById(R.id.bSend);
         bSend.setOnClickListener(this);
-        recepients = (EditText) findViewById((R.id.txRecipient));
+        recipients = (EditText) findViewById((R.id.txRecipient));
         timeLimit = (EditText) findViewById(R.id.txTime);
         messageText = (EditText) findViewById(R.id.editText4);
         encryption = (EditText) findViewById(R.id.txEncryption);
-        encryptionCheck = (CheckBox) findViewById(R.id.checkBox);
+ //       encryptionCheck = (CheckBox) findViewById(R.id.checkBox);
+        replySender = intent.getStringExtra("replySender");
+        replyCheck = intent.getBooleanExtra("replyCheck", false);
     }
 
     public void createMessage(){
-        if(encryptionCheck.isChecked()) {
+        if(!encryption.equals("")) {
             message.setEncryptionKey(encryption.getText().toString());
         }
         message.setText(messageText.getText().toString());
         message.setLifeSpan(Integer.parseInt(timeLimit.getText().toString()));
-        message.setReceiverID(recepients.getText().toString());
+        if(replyCheck) {
+            message.setReceiverID(replySender);
+            recipients.setText(replySender);
+        }
+        else
+            message.setReceiverID(recipients.getText().toString());
         message.setSenderID(intent.getStringExtra("sender"));
     }
 
@@ -94,7 +104,6 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
                             if (response != null) {
                                 if(jsonResponse.getJSONObject("user").getString("online").equals("1"))
                                 {
-                                    Log.d("ONLINE FOR FUCKING SURE",jsonResponse.toString());
                                     sendMessage();
                                 }
                                 else if(jsonResponse.getJSONObject("user").getString("online").equals("0")) {
@@ -174,7 +183,6 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
             Intent intent = new Intent(ComposeMessageActivity.this, UserAreaActivity.class);
             intent.putExtra("username",message.getSenderID());
             ComposeMessageActivity.this.startActivity(intent);
-
         }
     }
 }
