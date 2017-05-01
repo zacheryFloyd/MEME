@@ -52,7 +52,6 @@ public class UserAreaActivity extends AppCompatActivity implements View.OnClickL
         bInbox.setOnClickListener(this);
 
         final TextView txUsername = (TextView) findViewById(R.id.txUsername);
-        final TextView txType = (TextView) findViewById(R.id.txType);
         final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
 
         logoutLink.setOnClickListener(new View.OnClickListener() {

@@ -48,15 +48,12 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
     private EditText timeLimit;
     private EditText messageText;
     private EditText encryption;
-//    private CheckBox encryptionCheck;
     private Button bSend;
     private Button bBack;
     private messageModels message;
     private Intent intent;
     private String replySender;
     private boolean replyCheck;
-    public boolean ret = false;
-    public String strRet = "";
 
 
     @Override
@@ -73,21 +70,20 @@ public class ComposeMessageActivity extends AppCompatActivity implements View.On
         timeLimit = (EditText) findViewById(R.id.txTime);
         messageText = (EditText) findViewById(R.id.editText4);
         encryption = (EditText) findViewById(R.id.txEncryption);
- //       encryptionCheck = (CheckBox) findViewById(R.id.checkBox);
         replySender = intent.getStringExtra("replySender");
         replyCheck = intent.getBooleanExtra("replyCheck", false);
+        if(replyCheck)
+            recipients.setText(replySender);
     }
 
     public void createMessage(){
-        if(!encryption.equals("")) {
+        if(!encryption.getText().toString().equals("")) {
             message.setEncryptionKey(encryption.getText().toString());
         }
         message.setText(messageText.getText().toString());
         message.setLifeSpan(Integer.parseInt(timeLimit.getText().toString()));
-        if(replyCheck) {
+        if(replyCheck)
             message.setReceiverID(replySender);
-            recipients.setText(replySender);
-        }
         else
             message.setReceiverID(recipients.getText().toString());
         message.setSenderID(intent.getStringExtra("sender"));

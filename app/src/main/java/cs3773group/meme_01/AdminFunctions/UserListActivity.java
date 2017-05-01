@@ -51,7 +51,6 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
         });
 
         Intent intent = getIntent();
-        //ArrayList<userModels> users = new ArrayList<userModels>();
         users = (ArrayList<userModels>) intent.getSerializableExtra("users");
         for (userModels u : users) {
             Log.d("USER", u.getPassword());

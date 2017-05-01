@@ -90,6 +90,7 @@ public class ViewMessageActivity  extends AppCompatActivity implements View.OnCl
         if(v == bReply){
             userDeleteMessage();
             Intent intent = new Intent(ViewMessageActivity.this, ComposeMessageActivity.class);
+            intent.putExtra("sender",username);
             intent.putExtra("replySender",message.getSenderID());
             intent.putExtra("replyCheck", true);
             ViewMessageActivity.this.startActivity(intent);
