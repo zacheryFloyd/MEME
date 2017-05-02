@@ -10,6 +10,29 @@
     android:paddingTop="16dp"
     tools:context="cs3773group.meme_01.UserFunctions.InboxActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inbox"
+            android:textSize="30sp"
+            android:layout_weight="1"/>
+
+        <Button
+            android:id="@+id/bRefresh"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Refresh"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

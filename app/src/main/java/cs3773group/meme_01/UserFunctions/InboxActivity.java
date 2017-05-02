@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,11 +48,14 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
 
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteMessage.php";
     public static final String KEY_ID = "message_id";
+    private static final String GET_MESSAGES_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/getInbox.php";
+    public static final String KEY_USERNAME = "receiver_name";
     private RadioGroup messageList;
     private RadioButton messageButton;
     private Button bViewMessage;
     private Button bDeleteMessage;
     private Button bBack;
+    private Button bRefresh;
     private String username;
     private ArrayList<messageModels> messages;
     public int deleteId;
@@ -66,6 +70,8 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
         bViewMessage.setOnClickListener(this);
         bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(this);
+        bRefresh = (Button) findViewById(R.id.bRefresh);
+        bRefresh.setOnClickListener(this);
         bDeleteMessage = (Button) findViewById(R.id.bDeleteMessage);
         bDeleteMessage.setOnClickListener(this);
 
@@ -136,6 +142,68 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             intent.putExtra("username",username);
             InboxActivity.this.startActivity(intent);
         }
+        else if(v == bRefresh){
+            getMessages();
+        }
+    }
+
+    public void getMessages() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, GET_MESSAGES_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            /* ON Response we want to parse the JSON into users, and create
+                               an ArrayList of userModels. We then put the list as an extra for
+                               the UserListActivity
+                             */
+                            JSONArray jsonMessageArray = new JSONArray(response);
+                            if (response != null) {
+                                ArrayList<messageModels> messages = new ArrayList<messageModels>(); // will hold list of messages
+                                for (int i = 0; i<jsonMessageArray.length(); i++) {
+                                    JSONObject jsonMessage = new JSONObject();
+                                    jsonMessage = jsonMessageArray.getJSONObject(i);  //one user object from the JSON
+                                    Log.d("MESSAGE:",jsonMessage.toString());
+                                    messageModels message = new messageModels();
+                                    //create a user object from the JSON, and add to list
+                                    message.setText(jsonMessage.getJSONObject("message").getString("text"));
+                                    message.setSenderID(jsonMessage.getJSONObject("message").getString("sender"));
+                                    message.setReceiverID(jsonMessage.getJSONObject("message").getString("receiver"));
+                                    message.setLifeSpan(jsonMessage.getJSONObject("message").getInt("life"));
+                                    message.setMsgID(jsonMessage.getJSONObject("message").getInt("id"));
+                                    if(!jsonMessage.getJSONObject("message").getString("key").isEmpty()){
+                                        message.setEncryptionKey(jsonMessage.getJSONObject("message").getString("key"));
+                                    }
+                                    Log.d("MESSAGE", message.getText());
+                                    messages.add(message);
+                                }
+                                Intent intent = new Intent(InboxActivity.this, InboxActivity.class);
+                                intent.putExtra("messages", messages);
+                                intent.putExtra("username",username);
+                                InboxActivity.this.startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(InboxActivity.this, "No Messages To Display", Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> map = new HashMap<>();
+                map.put(KEY_USERNAME, username);
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
     }
 
     public void createMessageList(int listLength) {
