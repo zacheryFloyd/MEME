@@ -66,7 +66,13 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
             UserListActivity.this.startActivity(intent);
         }
         else if(v == bSelectUser){
+            if(userList == null) {
+                return;
+            }
             int selectedId = userList.getCheckedRadioButtonId();
+            if(selectedId == -1) {
+                return;
+            }
             userButton = (RadioButton) findViewById(selectedId);
 
             Intent intent = new Intent(UserListActivity.this, AdminViewUserActivity.class);

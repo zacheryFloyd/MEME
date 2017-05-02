@@ -103,7 +103,13 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             InboxActivity.this.startActivity(intent);
         }
         else if(v == bViewMessage){
+            if(messageList == null) {
+                return;
+            }
             final int selectedID = messageList.getCheckedRadioButtonId();
+            if(selectedID == -1) {
+                return;
+            }
             Intent intent = new Intent(InboxActivity.this, ViewMessageActivity.class);
             intent.putExtra("message",messages.get(selectedID));
             if(messages.get(selectedID).getEncryptionKey().isEmpty())
@@ -144,7 +150,13 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             }
         }
         else if(v == bDeleteMessage){
+            if(messageList == null) {
+                return;
+            }
             int selectedID = messageList.getCheckedRadioButtonId();
+            if (selectedID == -1) {
+                return;
+            }
             deleteId = messages.get(selectedID).getMsgID();
             Log.d("DELETE: ",deleteId+"");
             userDeleteMessage();
