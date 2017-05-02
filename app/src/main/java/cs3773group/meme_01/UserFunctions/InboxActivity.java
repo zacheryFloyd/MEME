@@ -29,6 +29,7 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,6 +57,7 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
     private Button bDeleteMessage;
     private Button bBack;
     private Button bRefresh;
+    private LinearLayout layoutInbox;
     private String username;
     private ArrayList<messageModels> messages;
     public int deleteId;
@@ -82,7 +84,15 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             Log.d("MESSAGE", u.getText());
         }
         int listSz = messages.size();
-        createMessageList(listSz);
+        if(listSz > 0)
+            createMessageList(listSz);
+        else{
+            layoutInbox = (LinearLayout) findViewById(R.id.layoutInbox);
+            TextView emptyInbox = new TextView(this);
+            emptyInbox.setText("No New Messages");
+            layoutInbox.addView(emptyInbox);
+        }
+
     }
 
     @Override
