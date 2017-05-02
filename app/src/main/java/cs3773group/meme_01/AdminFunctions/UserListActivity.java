@@ -65,6 +65,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         if(v == bBack){
             Intent intent = new Intent(UserListActivity.this, AdminAreaActivity.class);
+            intent.putExtra("username", adminUsername);
             UserListActivity.this.startActivity(intent);
         }
         else if(v == bSelectUser){
