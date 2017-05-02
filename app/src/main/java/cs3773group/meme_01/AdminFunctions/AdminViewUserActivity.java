@@ -1,6 +1,7 @@
 package cs3773group.meme_01.AdminFunctions;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -35,6 +36,7 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     private Button bLock;
     private Button bUnlock;
     private Button bDelete;
+    private String adminUsername;
     private String username;
     private String online;
     private String lock;
@@ -44,7 +46,6 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     private static final String DELETE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/deleteUser.php";
 
     public static final String KEY_USERNAME = "user_name";
-    //public static final String KEY_PASSWORD = "user_pw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,12 +75,21 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
         });
 
         Intent intent = getIntent();
+        adminUsername = intent.getStringExtra("admin");
         username = intent.getStringExtra("username");
         online = intent.getStringExtra("online");
         lock = intent.getStringExtra("lock");
 
         txUsername.setText(username);
+        if(online.equals("ONLINE"))
+            txOnline.setTextColor(Color.GREEN);
+        else
+            txOnline.setTextColor(Color.RED);
         txOnline.setText(online);
+        if(lock.equals("UNLOCKED"))
+            txLock.setTextColor(Color.GREEN);
+        else
+            txLock.setTextColor(Color.RED);
         txLock.setText(lock);
     }
 
@@ -87,21 +97,25 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
     public void onClick(View v) {
         if(v == bBack){
             Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            intent.putExtra("username", adminUsername);
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bLock){
             userChangeLockStatus(1);
             Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            intent.putExtra("username", adminUsername);
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bUnlock){
             userChangeLockStatus(0);
             Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            intent.putExtra("username", adminUsername);
             AdminViewUserActivity.this.startActivity(intent);
         }
         else if(v == bDelete){
             deleteUser();
             Intent intent = new Intent(AdminViewUserActivity.this, AdminAreaActivity.class);
+            intent.putExtra("username", adminUsername);
             AdminViewUserActivity.this.startActivity(intent);
         }
     }

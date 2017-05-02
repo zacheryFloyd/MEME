@@ -38,6 +38,7 @@ import cs3773group.meme_01.UserFunctions.InboxActivity;
 import cs3773group.meme_01.UserFunctions.ViewMessageActivity;
 
 public class AdminAreaActivity extends AppCompatActivity implements View.OnClickListener{
+    private String adminUsername;
     private String userUsername;
     private String userPassword;
     private Button bCreateUser;
@@ -54,7 +55,6 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         setContentView(R.layout.activity_admin_area);
 
         final TextView txUsername = (TextView) findViewById(R.id.txUsername);
-        final TextView txType = (TextView) findViewById(R.id.txType);
         final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
         bCreateUser = (Button) findViewById(R.id.bCreateUser);
         bCreateUser.setOnClickListener(this);
@@ -69,11 +69,9 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         });
 
         Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        String type = intent.getStringExtra("type");
+        adminUsername = intent.getStringExtra("username");
 
-        txUsername.setText(username);
-        txType.setText(type);
+        txUsername.setText(adminUsername);
     }
     public void addUserToDatabase() {
         generateNewUser();
@@ -181,6 +179,7 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
                                     users.add(user);
                                 }
                                 Intent intent = new Intent(AdminAreaActivity.this, UserListActivity.class);
+                                intent.putExtra("admin", adminUsername);
                                 intent.putExtra("users", users);
                                 AdminAreaActivity.this.startActivity(intent);
                             }

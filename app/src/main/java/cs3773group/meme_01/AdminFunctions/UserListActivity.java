@@ -25,6 +25,7 @@ import cs3773group.meme_01.R;
  */
 
 public class UserListActivity extends AppCompatActivity implements View.OnClickListener{
+    private String adminUsername;
     private Button bSelectUser;
     private Button bBack;
     private RadioGroup userList;
@@ -51,6 +52,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
         });
 
         Intent intent = getIntent();
+        adminUsername = intent.getStringExtra("admin");
         users = (ArrayList<userModels>) intent.getSerializableExtra("users");
         for (userModels u : users) {
             Log.d("USER", u.getPassword());
@@ -76,6 +78,7 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
             userButton = (RadioButton) findViewById(selectedId);
 
             Intent intent = new Intent(UserListActivity.this, AdminViewUserActivity.class);
+            intent.putExtra("admin", adminUsername);
             intent.putExtra("username", userButton.getText());
             if(users.get(selectedId).isOnline()){
                 intent.putExtra("online", "ONLINE");

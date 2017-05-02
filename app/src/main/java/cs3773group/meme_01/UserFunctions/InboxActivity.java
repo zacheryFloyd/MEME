@@ -3,10 +3,12 @@ package cs3773group.meme_01.UserFunctions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -90,6 +92,9 @@ public class InboxActivity extends AppCompatActivity implements View.OnClickList
             layoutInbox = (LinearLayout) findViewById(R.id.layoutInbox);
             TextView emptyInbox = new TextView(this);
             emptyInbox.setText("No New Messages");
+            emptyInbox.setGravity(Gravity.CENTER);
+            emptyInbox.setPadding(0,30,0,0);
+            emptyInbox.setTextSize(20);
             layoutInbox.addView(emptyInbox);
         }
 
