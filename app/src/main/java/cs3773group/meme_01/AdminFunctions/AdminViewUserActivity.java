@@ -65,15 +65,6 @@ public class AdminViewUserActivity extends AppCompatActivity implements View.OnC
         bDelete = (Button) findViewById(R.id.bDelete);
         bDelete.setOnClickListener(this);
 
-        final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
-        logoutLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(AdminViewUserActivity.this, MainActivity.class);
-                AdminViewUserActivity.this.startActivity(registerIntent);
-            }
-        });
-
         Intent intent = getIntent();
         adminUsername = intent.getStringExtra("admin");
         username = intent.getStringExtra("username");

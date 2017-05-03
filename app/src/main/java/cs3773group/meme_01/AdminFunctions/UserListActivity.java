@@ -42,15 +42,6 @@ public class UserListActivity extends AppCompatActivity implements View.OnClickL
         bBack = (Button) findViewById(R.id.bBack);
         bBack.setOnClickListener(this);
 
-        final TextView logoutLink = (TextView) findViewById(R.id.linkLogout);
-        logoutLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent registerIntent = new Intent(UserListActivity.this, MainActivity.class);
-                UserListActivity.this.startActivity(registerIntent);
-            }
-        });
-
         Intent intent = getIntent();
         adminUsername = intent.getStringExtra("admin");
         users = (ArrayList<userModels>) intent.getSerializableExtra("users");
