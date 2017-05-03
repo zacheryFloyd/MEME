@@ -35,6 +35,7 @@ import cs3773group.meme_01.MainActivity;
 import cs3773group.meme_01.R;
 import cs3773group.meme_01.Models.userModels;
 import cs3773group.meme_01.UserFunctions.InboxActivity;
+import cs3773group.meme_01.UserFunctions.UserAreaActivity;
 import cs3773group.meme_01.UserFunctions.ViewMessageActivity;
 
 public class AdminAreaActivity extends AppCompatActivity implements View.OnClickListener{
@@ -46,6 +47,8 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
 
     private static final String LOGIN_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/insertUser.php";
     private static final String GET_USERS_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/getUsers.php";
+    private static final String OFFLINE_URL = "http://galadriel.cs.utsa.edu/~group1/android_login_api/userOffline.php";
+
     public static final String KEY_USERNAME = "user_name";
     public static final String KEY_PASSWORD = "user_pw";
 
@@ -64,6 +67,7 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
             @Override
             public void onClick(View v) {
                 Intent registerIntent = new Intent(AdminAreaActivity.this, MainActivity.class);
+                userOffline();
                 AdminAreaActivity.this.startActivity(registerIntent);
             }
         });
@@ -197,6 +201,43 @@ public class AdminAreaActivity extends AppCompatActivity implements View.OnClick
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
+
+    private void userOffline(){
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, OFFLINE_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            if(response != null) {
+                                if (response != null) {
+                                    if (jsonResponse.getString("success").equals("true"))
+                                        Toast.makeText(AdminAreaActivity.this, "User Successfully Offline", Toast.LENGTH_LONG).show();
+                                    else if (jsonResponse.getString("success").equals("false"))
+                                        Toast.makeText(AdminAreaActivity.this, "User Offlining Failed", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> map = new HashMap<>();
+                map.put(KEY_USERNAME, adminUsername);
+                return map;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(stringRequest);
+    }
+
     @Override
     public void onClick(View v) {
         if(v == bCreateUser){
