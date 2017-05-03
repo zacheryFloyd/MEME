@@ -20,7 +20,7 @@
             android:id="@+id/registerMessage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="To register for an account please stop by the IT Department as soon as you are able."
+            android:text="To register for an account please visit your System Administrator as soon as you are able."
             android:textSize="24sp" />
 
         <Space
